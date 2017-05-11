@@ -37,3 +37,5 @@ What we have at the moment?
 9. Uploaded video list
 10. Video view.
 
+![alt text](https://github.com/armdev/tosptube/blob/master/screens/08.JPG)
+
