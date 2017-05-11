@@ -1,0 +1,44 @@
+mongohost:
+         127.0.0.1
+mongodb:
+         youtuberDB
+server:  
+  type: default  
+  applicationContextPath: /auth 
+  adminContextPath: /adminauth
+  maxThreads: 20480
+  minThreads: 50
+  gzip:
+    bufferSize: 32KiB
+  #requestLog:
+    #timeZone: UTC
+  applicationConnectors:
+  - type: http     
+    port: 9900
+    bindHost: 127.0.0.1 # only bind to loopback
+    headerCacheSize: 512 bytes
+    outputBufferSize: 64KiB
+    maxRequestHeaderSize: 32KiB
+    maxResponseHeaderSize: 32KiB
+    inputBufferSize: 32KiB
+    idleTimeout: 30 seconds
+    minBufferPoolSize: 64 bytes
+    bufferPoolIncrement: 1KiB
+    maxBufferPoolSize: 64KiB
+    acceptorThreads: 1
+    selectorThreads: 2
+    acceptQueueSize: 1024
+    reuseAddress: true
+    soLingerTime: 345s
+    useServerHeader: false
+    useDateHeader: true
+    useForwardedHeaders: true
+  adminConnectors:
+  - type: http
+    port: 9901
+
+defaultHystrixConfig:
+    hystrix.command.DeviceServiceDependency.execution.isolation.thread.timeoutInMilliseconds: 2000
+    hystrix.threadpool.PinCheckService.maxQueueSize: 50
+    hystrix.threadpool.PinCheckService.coreSize: 5
+
