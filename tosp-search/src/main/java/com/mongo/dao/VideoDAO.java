@@ -1,11 +1,13 @@
 package com.mongo.dao;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mongo.models.VideoModel;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.util.JSON;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,15 +20,18 @@ public class VideoDAO {
 
     private final MongoCollection<Document> collection;
 
-    private final Gson gson = new Gson();
+    private final Gson gson = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
     public VideoDAO(MongoCollection<Document> collection) {
         this.collection = collection;
     }
 
     public VideoModel save(VideoModel data) {
+        Date currentDate = new Date();
+
         UUID resourceId = UUID.randomUUID();
-        data.setLastViewed(new Date(System.currentTimeMillis()).toString());
+        data.setLastViewed(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentDate));
         data.setResourceId(resourceId.toString());
         data.setViewCount(1);
         String json = gson.toJson(data);
@@ -36,14 +41,14 @@ public class VideoDAO {
     }
 
     public boolean updateCount(VideoModel data) {
-
+        Date currentDate = new Date();
         System.out.println(" data.getLastViewed() " + data.getLastViewed());
 
         System.out.println(" data.getViewCount() " + data.getViewCount());
         Document document = new Document();
         try {
             document.append("$set", new BasicDBObject()
-                    .append("lastViewed", new Date(System.currentTimeMillis()).toString())
+                    .append("lastViewed", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentDate))
                     .append("viewCount", data.getViewCount()));
             UpdateResult update = collection.updateOne(new BasicDBObject().append("resourceId", data.getResourceId()), document);
             System.out.println("updateCount " + update.wasAcknowledged());

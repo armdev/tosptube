@@ -81,7 +81,7 @@ public class VideoResource {
         if (model != null) {
             System.out.println("####updateCount:model " + model.toString());
             model.setViewCount(model.getViewCount() + 1);
-            model.setLastViewed(new Date(System.currentTimeMillis()).toString());
+          //  model.setLastViewed(new Date(System.currentTimeMillis()));
         }
         videoDAO.updateCount(model);
         return Response.ok().entity("\"updated\"").type(MediaType.APPLICATION_JSON + ";charset=utf-8").build();

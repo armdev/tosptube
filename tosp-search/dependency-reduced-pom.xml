@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.dropwizard</groupId>
-  <artifactId>dropwizard-mongo-search</artifactId>
+  <groupId>com.mongo</groupId>
+  <artifactId>tosp-search</artifactId>
   <version>1.0</version>
   <build>
-    <finalName>dropwizard-mongo-search</finalName>
+    <finalName>tosp-search</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>

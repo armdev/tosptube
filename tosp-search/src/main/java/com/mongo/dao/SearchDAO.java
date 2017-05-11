@@ -1,6 +1,7 @@
 package com.mongo.dao;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.mongo.models.SearchKeyModel;
 import com.mongodb.BasicDBObject;
@@ -21,7 +22,10 @@ public class SearchDAO {
 
     private final MongoCollection<Document> collection;
 
-    private final Gson gson = new Gson();
+   // private final Gson gson = new Gson();
+    
+    private final Gson gson = new GsonBuilder()
+   .setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
 
     public SearchDAO(MongoCollection<Document> collection) {
         this.collection = collection;
