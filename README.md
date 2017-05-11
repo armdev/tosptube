@@ -1,4 +1,4 @@
-# tosptube
+# TospTube
 
 TospTube video is just video search/upload start up experemental project under development stage.
 
