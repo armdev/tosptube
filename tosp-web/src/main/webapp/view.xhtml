@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"> 
+
+    <h:head>
+        <f:viewParam id="videoId" name="videoId" value="#{param.videoId}"/>
+    </h:head>
+    <f:view contracts="default" transient="false">
+        <ui:composition template="/template.xhtml">              
+            <ui:define name="content">
+                <h:form id="main" prependId="false">
+                    <div class="wrapper">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <section class="panel">
+                                    <div class="panel-body">
+                                        <iframe title="YouTube video player"  allowfullscreen="true" width="800px" height="400px"
+                                                src="http://www.youtube.com/embed/#{param.videoId}" frameborder="0">
+                                        </iframe>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-lg-4">
+                                <section class="panel">
+                                    <div class="panel-body">
+                                        <ui:include src="/WEB-INF/includes/nextsaved.xhtml"/>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>

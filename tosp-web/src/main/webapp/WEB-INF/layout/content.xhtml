@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">     
+
+
+    <!-- page head start-->
+    <div class="page-head">
+        <h3>
+            Dashboard
+        </h3>
+        <span class="sub-title"></span>
+        <div class="state-information">
+            
+        </div>
+    </div>
+
+
+    <!--body wrapper start-->
+    <div class="wrapper">
+
+        <h:form class="navbar-form navbar-center" rendered="#{healthCheckClient.backendHealth}">
+            <input type="text" class="form-control" style="width:500px" jsf:required="true" jsf:value="#{frontBean.searchQuery}" placeholder="Search key"/>
+            <h:commandButton styleClass="btn btn-info" value="Search" action="#{frontBean.doSearch()}"/>
+        </h:form>
+
+    </div>
+    <!--body wrapper end-->
+
+
+    <!--footer section start-->
+    <footer>
+      2017
+    </footer>
+    <!--footer section end-->
+</html>
+

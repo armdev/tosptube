@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">    
+    <h:head>
+        <ui:insert name="header"></ui:insert> 
+        <ui:include src="/WEB-INF/layout/header_main.xhtml"/>     
+    </h:head>
+    <h:body>
+        <body class="sticky-header">
+            <section>
+                <ui:insert name="left"></ui:insert> 
+                <ui:include src="/WEB-INF/layout/left.xhtml"/> 
+                <div class="body-content" style="min-height: 1200px;">
+                    <ui:insert name="content"></ui:insert> 
+                    <h:panelGroup rendered="#{sessionContext.user.userId != null}">
+                        <ui:include src="/WEB-INF/layout/top.xhtml"/>                   
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{sessionContext.user.userId == null}">
+                        <ui:include src="/WEB-INF/layout/publictop.xhtml"/>                   
+                    </h:panelGroup>
+                    
+                    <ui:include src="/WEB-INF/layout/right.xhtml"/> 
+                </div>                 
+            </section>
+        </body>
+        <div class="container">
+            <ui:insert name="footer"></ui:insert> 
+            <hr/>
+            <ui:include src="/WEB-INF/layout/footer.xhtml"/> 
+        </div><!-- /.container -->
+        <ui:include src="/WEB-INF/layout/footer_includes.xhtml"/>   
+    </h:body>
+</html>
+

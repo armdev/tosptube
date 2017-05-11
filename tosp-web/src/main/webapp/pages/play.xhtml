@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">     
+
+    <h:head>
+        <f:metadata>        
+            <f:viewParam id="videoId" name="videoId" value="#{showVideoBean.videoId}"/>  
+        </f:metadata> 
+    </h:head>
+    <f:view contracts="default" transient="false">
+        <ui:composition template="/template.xhtml">              
+            <ui:define name="content"> 
+                <body class="login-body">
+                    <h2 class="form-heading">Uploaded video list</h2>
+                    <hr/>
+                    <div class="container log-row">
+                        <p:growl/>                    
+                        <video width="720" height="580" autoplay="true" controls="true" poster="/file-storage/#{showVideoBean.fileModel.filepath}#t=55">                                                        
+                            <source  src="/file-storage/#{showVideoBean.fileModel.filepath}" type="video/mp4.mp4"/>
+                            <source src="/file-storage/#{showVideoBean.fileModel.filepath}" type="video/ogg"/>                           
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </body>                
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>

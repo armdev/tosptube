@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"> 
+
+    <h:panelGroup  rendered="#{healthCheckClient.backendHealth}">
+        <h:head  rendered="#{healthCheckClient.backendHealth}">
+            <f:metadata  rendered="#{healthCheckClient.backendHealth}">           
+                <f:event listener="#{viewVideoBean.initRandom}" type="preRenderView" rendered="#{healthCheckClient.backendHealth}"/>               
+            </f:metadata> 
+        </h:head>
+    </h:panelGroup>
+    <f:view contracts="default" transient="false">
+        <ui:composition template="/template.xhtml">              
+            <ui:define name="content">
+                <h:form id="main" prependId="false">
+                    <div class="wrapper">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <section class="panel">
+                                    <div class="panel-body">                                      
+                                        <h:commandButton  styleClass="btn btn-info"  value="Next Video">
+                                            <f:ajax render="next"/>                                            
+                                        </h:commandButton>                                         
+                                        <p:fragment autoUpdate="true" id="next">    
+                                              <h4>#{viewVideoBean.youtubeVideo.title}</h4>	
+                                            <iframe title="YouTube video player"  allowfullscreen="true" width="800px" height="400px"
+                                                    src="http://www.youtube.com/embed/#{viewVideoBean.youtubeVideo.videoId}" frameborder="0">
+                                            </iframe>
+                                               <textarea name="addcomment" class="form-control" id="commentArea" jsf:rendered="#{sessionContext.user.userId != null}"
+                                                      jsf:required="true" jsf:value="#{viewVideoBean.comment.comment}"
+                                                     cols="30" rows="5"></textarea> 
+                                         
+
+                                            <button class="btn btn-danger btn-lg" jsf:rendered="#{sessionContext.user.userId != null}" type="submit" 
+                                                    jsf:action="#{viewVideoBean.addComment()}">
+                                                Add Comment
+                                            </button>  
+                                            <p> View Count #{viewVideoBean.youtubeVideo.viewCount}</p>
+                                            <p><a target="_blank" href="https://www.youtube.com/channel/#{viewVideoBean.youtubeVideo.channelId}">
+                                                    #{viewVideoBean.youtubeVideo.title}</a></p>
+                                            <p>#{viewVideoBean.youtubeVideo.description}</p>
+                                            <ui:include src="/WEB-INF/includes/comments.xhtml"/>
+                                        </p:fragment>
+                                        <ui:include src="/WEB-INF/includes/unavailable.xhtml"/> 
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-lg-4">
+                                <section class="panel">
+                                    <div class="panel-body">
+                                        <h:panelGroup  rendered="#{healthCheckClient.backendHealth}">
+                                            <ui:include src="/WEB-INF/includes/randomlist.xhtml"/>
+                                        </h:panelGroup>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>

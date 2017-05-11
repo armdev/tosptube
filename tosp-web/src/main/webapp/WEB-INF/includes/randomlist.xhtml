@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">  
+
+    <h:panelGroup  rendered="#{healthCheckClient.backendHealth}">
+        <p:repeat value="#{restClient.randomList}" var="list">
+            <div class="single-right-grids">
+                <div class="col-md-10 single-right-grid-center">
+                    <a href="#{request.contextPath}/single.jsf?videoId=#{list.videoId}" title="#{list.title}">
+                        <img src="#{list.thumbnailUrl}" alt="#{list.title}" class="img-thumbnail" 
+                             width="450px" height="450px"/>                       
+                    </a>
+                </div>
+                <div class="col-md-8 ">
+                    <a href="#{request.contextPath}/single.jsf?videoId=#{list.videoId}" title="#{list.title}">                 
+                        #{list.title}         
+                    </a>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </p:repeat>
+    </h:panelGroup>   
+</html>
+

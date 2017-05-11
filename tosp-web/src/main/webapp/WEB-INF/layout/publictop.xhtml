@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!-- header section start-->
+    <div class="header-section">        
+        <!--logo and logo icon start-->
+        <div class="logo dark-logo-bg hidden-xs hidden-sm">
+            <a href="#{request.contextPath}/index.jsf">
+               
+                <!--<i class="fa fa-maxcdn"></i>-->
+                <span class="brand-name"></span>
+            </a>
+        </div>
+        <div class="icon-logo dark-logo-bg hidden-xs hidden-sm">
+            <a href="#{request.contextPath}/index.jsf">
+           
+            </a>
+        </div>
+        <!--logo and logo icon end-->
+        <!--toggle button start-->
+        <a class="toggle-btn"><i class="fa fa-outdent"></i></a>
+        <!--toggle button end-->
+        <!--mega menu start-->
+        <div id="navbar-collapse-1" class="navbar-collapse collapse yamm mega-menu">
+            <ul class="nav navbar-nav">                
+                <li class="dropdown">
+                    <a href="#{request.contextPath}/login.jsf"  > Sign In  <b></b></a>                    
+                </li>                                
+                <li class="dropdown">
+                    <a href="#{request.contextPath}/registration.jsf" > Sign Up  <b></b></a>                    
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</html>
+

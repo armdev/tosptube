@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">   
+
+    <!-- sidebar left start-->
+    <div class="sidebar-left">
+        <!--responsive view logo start-->
+        <div class="logo dark-logo-bg">
+            <a href="index.html">
+                
+                <!--<i class="fa fa-maxcdn"></i>-->
+                <span class="brand-name"></span>
+            </a>
+        </div>
+        <!--responsive view logo end-->
+
+        <div class="sidebar-left-info">
+            <!-- visible small devices start-->
+            <div class=" search-field">  </div>
+            <!-- visible small devices end-->
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked side-navigation">
+                <li>
+                    <h3 class="navigation-title">Navigation</h3>
+                </li>
+                <li><a href="#{request.contextPath}/index.jsf"><i class="fa fa-home"></i> <span>Main</span></a></li>
+                <li><a href="#{request.contextPath}/top.jsf"><i class="fa fa-home"></i> <span>Top Trends</span></a></li>
+                <li><a href="#{request.contextPath}/last.jsf"><i class="fa fa-home"></i> <span>Last Viewed</span></a></li>
+                <li><a href="#{request.contextPath}/topsearches.jsf"><i class="fa fa-home"></i> <span>Top Searches</span></a></li>
+                <li><a href="#{request.contextPath}/random.jsf"><i class="fa fa-home"></i> <span>Random Video</span></a></li>
+                <li><a href="#{request.contextPath}/advanced.jsf"><i class="fa fa-home"></i> <span>Advanced Search</span></a></li>
+                <h:panelGroup rendered="#{sessionContext.user.userId != null}">                
+                <li><a href="#{request.contextPath}/pages/uploadvideo.jsf"><i class="fa fa-home"></i> <span>Upload Video</span></a></li>
+                <li><a href="#{request.contextPath}/pages/videolist.jsf"><i class="fa fa-home"></i> <span>My Videos</span></a></li>
+                </h:panelGroup>
+            </ul>         
+        </div>
+    </div>
+</html>
+
