@@ -1,4 +1,4 @@
-# tosptube
+# TospTube
 
 TospTube video is just video search/upload start up experemental project under development stage.
 
@@ -38,4 +38,6 @@ What we have at the moment?
 10. Video view.
 
 ![alt text](https://github.com/armdev/tosptube/blob/master/screens/08.JPG)
+
+![alt text](https://github.com/armdev/tosptube/blob/master/screens/01.JPG)
 
