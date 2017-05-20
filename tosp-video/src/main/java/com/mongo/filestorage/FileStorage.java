@@ -70,9 +70,11 @@ public class FileStorage {
                     throw new Exception("Could not create directory for file storage");
                 }
             }
-            file.createNewFile();
-            try (FileOutputStream fo = new FileOutputStream(file)) {
-                fo.write(content);
+            boolean createNewFile = file.createNewFile();
+            if (createNewFile) {
+                try (FileOutputStream fo = new FileOutputStream(file)) {
+                    fo.write(content);
+                }
             }
         } catch (IOException e) {
         }
@@ -108,7 +110,7 @@ public class FileStorage {
                 try (FileInputStream io = new FileInputStream(file)) {
                     int bytesize = io.available();
                     content = new byte[bytesize];
-                    io.read(content);
+                    int read = io.read(content);
                 }
             } catch (IOException e) {
             }

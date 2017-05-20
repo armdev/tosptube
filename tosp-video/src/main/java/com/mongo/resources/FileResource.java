@@ -27,7 +27,7 @@ public class FileResource {
 
     private final String fileStoragePath;
 
-    private FileStorage fs;
+    private final FileStorage fs;
 
     public FileResource(VideoDAO videoDAO, String fileStoragePath) {
         fs = new FileStorage(fileStoragePath);
@@ -40,12 +40,11 @@ public class FileResource {
     @POST
     @Timed
     public Response save(@Valid FileModel file) {
-        System.out.println("#######Received file " + file.toString());
         if (file != null) {
             try {
                 byte[] backToBytes = Base64.decodeBase64(file.getContent());
-                System.out.println("storeFile " + backToBytes);
-                String filepath = fs.storeFile(file.getTitle().replaceAll("\\s+","-").trim(), backToBytes);
+                //  System.out.println("storeFile " + backToBytes);
+                String filepath = fs.storeFile(file.getTitle().replaceAll("\\s+", "-").trim(), backToBytes);
                 if (filepath != null) {
                     videoDAO.saveVideo(file, filepath);
                 }
@@ -59,18 +58,16 @@ public class FileResource {
     @GET
     @Path("/findone/{videoId}")
     public Response findOneVideo(@PathParam("videoId") String videoId) {
-        FileModel model = videoDAO.findById(videoId);//file id
-        if (model != null) {
-            System.out.println(" file path: " + model.getFilepath());
-            byte[] content = fs.readFile(model.getFilepath());
-            String base64String = Base64.encodeBase64String(content);
-            System.out.println(" base64String$$$$$$$$$$$$$$$$$$$ " + base64String);
-            model.setContent(base64String);
-        }
-        if (model == null) {
-            System.out.println(" model is null ");
+        FileModel model = videoDAO.findById(videoId);//file id      
+        if (null == model) {
+           // System.out.println(" model is null ");
             return Response.serverError().entity("\"failed\"").type(MediaType.APPLICATION_JSON).build();
         }
+       // System.out.println(" file path: " + model.getFilepath());
+        byte[] content = fs.readFile(model.getFilepath());
+        String base64String = Base64.encodeBase64String(content);
+        //System.out.println(" base64String$$$$$$$$$$$$$$$$$$$ " + base64String);
+        model.setContent(base64String);
         return Response.ok().entity(model).type(MediaType.APPLICATION_JSON).build();
     }
 
@@ -91,17 +88,17 @@ public class FileResource {
     @GET
     @Path("/find/user/one/{videoId}/{userId}")
     public Response findOneUserUploadedVideo(@PathParam("videoId") String videoId, @PathParam("userId") String userId) {
-        System.out.println(" videoId " + videoId);
-        System.out.println(" userId " + userId);
+        //System.out.println(" videoId " + videoId);
+       // System.out.println(" userId " + userId);
         FileModel model = videoDAO.findByUserIdAndVideoId(videoId, userId);
         if (model != null) {
-            System.out.println(" file path: " + model.getFilepath());
+           // System.out.println(" file path: " + model.getFilepath());
             byte[] content = fs.readFile(model.getFilepath());
             String base64String = Base64.encodeBase64String(content);
             model.setContent(base64String);
         }
         if (model == null) {
-            System.out.println(" model is null ");
+           // System.out.println(" model is null ");
             return Response.serverError().entity("\"failed\"").type(MediaType.APPLICATION_JSON).build();
         }
         return Response.ok().entity(model).type(MediaType.APPLICATION_JSON).build();

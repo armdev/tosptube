@@ -16,6 +16,7 @@ public class MongoHealthCheck extends HealthCheck {
 
     @Override
     protected Result check() throws Exception {
+        @SuppressWarnings("deprecation")
         List<String> databaseNames = mongo.getDatabaseNames();
         return Result.healthy();
     }
