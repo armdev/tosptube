@@ -38,7 +38,7 @@ public class UserResource {
         boolean check = userDao.checkEmail(data.getEmail());
         boolean checkUsername = userDao.checkUsername(data.getUsername());
         UUID userId = UUID.randomUUID();
-        if (!check && !checkUsername) {          
+        if (!check && !checkUsername) {
             data.setUserId(userId.toString());
             UUID profileLink = UUID.randomUUID();
             data.setProfileLink(profileLink.toString());
@@ -58,15 +58,15 @@ public class UserResource {
     public Response userAuth(@Valid UserModel data) {
         Optional<UserModel> model = userDao.login(data.getEmail(), data.getPassword());
         if (model.isPresent()) {
-            System.out.println("user is present");                    
+            System.out.println("user is present");
             String token = JWTSignerService.createJWTToken(model.get().getUserId(), model.get().getEmail(), model.get().getEmail(), System.currentTimeMillis());
             model.get().setToken(token);
-            return Response.ok().entity(model.get()).type(MediaType.APPLICATION_JSON + ";charset=utf-8").build();            
-        }else  if (!model.isPresent()) {
+            return Response.ok().entity(model.get()).type(MediaType.APPLICATION_JSON + ";charset=utf-8").build();
+        } else if (!model.isPresent()) {
             return Response.serverError().entity("\"nouser\"").type(MediaType.APPLICATION_JSON).build();
-        }else{
-           return Response.serverError().entity("\"error\"").type(MediaType.APPLICATION_JSON).build();
-        }        
+        } else {
+            return Response.serverError().entity("\"error\"").type(MediaType.APPLICATION_JSON).build();
+        }
     }
 
     @GET

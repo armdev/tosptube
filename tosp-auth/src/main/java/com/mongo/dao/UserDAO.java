@@ -4,14 +4,12 @@ import com.google.gson.Gson;
 import com.mongo.models.UserModel;
 import com.mongo.utils.CommonUtils;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.result.UpdateResult;
 import com.mongodb.util.JSON;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -65,7 +63,7 @@ public class UserDAO {
     public List<UserModel> findAll() {
         final List<UserModel> userList = new ArrayList<>();
         @SuppressWarnings("UnusedAssignment")
-        UserModel entity = new UserModel();
+        UserModel entity = null;
         String sort = "registeredDate";
         String order = "desc";
         Bson sortCriteria = new BasicDBObject(sort, "desc".equals(order) ? -1 : 1);
@@ -83,25 +81,22 @@ public class UserDAO {
         document.append("$set", new BasicDBObject()
                 .append("password", password));
         UpdateResult update = collection.updateOne(new BasicDBObject().append("id", id), document);
-        System.out.println("updatePassword " + update.wasAcknowledged());
         return true;
     }
 
     public boolean updateProfile(String userId, UserModel entity) {
         try {
             Document document = new Document();
-
             document.append("$set",
                     new BasicDBObject()
                             .append("email", entity.getEmail())
                             .append("firstname", entity.getFirstname())
                             .append("lastname", entity.getLastname())
                             .append("status", entity.getStatus()));
-
             UpdateResult update = collection.updateOne(new BasicDBObject().append("id", userId), document);
-            System.out.println("updateProfile " + update.wasAcknowledged());
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
-
             return false;
         }
         return true;

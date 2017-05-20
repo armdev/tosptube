@@ -30,4 +30,7 @@ public class CommonUtils {
         return sb.toString();
     }
 
+    private CommonUtils() {
+    }
+
 }
