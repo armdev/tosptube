@@ -51,7 +51,8 @@ public class VideoDAO {
                     .append("lastViewed", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(currentDate))
                     .append("viewCount", data.getViewCount()));
             UpdateResult update = collection.updateOne(new BasicDBObject().append("resourceId", data.getResourceId()), document);
-            System.out.println("updateCount " + update.wasAcknowledged());
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception e) {
         }
         return true;
@@ -72,7 +73,7 @@ public class VideoDAO {
     public List<VideoModel> findBySearchKey(String searchKey) {
         final List<VideoModel> list = new ArrayList<>();
         @SuppressWarnings("UnusedAssignment")
-        VideoModel entity = new VideoModel();
+        VideoModel entity = null;
         String sort = "viewCount";
         String order = "desc";
         Bson sortCriteria = new BasicDBObject(sort, "desc".equals(order) ? -1 : 1);
@@ -88,7 +89,7 @@ public class VideoDAO {
     public List<VideoModel> findAll() {
         final List<VideoModel> list = new ArrayList<>();
         @SuppressWarnings("UnusedAssignment")
-        VideoModel entity = new VideoModel();
+        VideoModel entity = null;
         String sort = "lastViewed";
         String order = "desc";
         Bson sortCriteria = new BasicDBObject(sort, "desc".equals(order) ? -1 : 1);
@@ -103,7 +104,7 @@ public class VideoDAO {
     public List<VideoModel> findTop200() {
         final List<VideoModel> list = new ArrayList<>();
         @SuppressWarnings("UnusedAssignment")
-        VideoModel entity = new VideoModel();
+        VideoModel entity = null;
         String sort = "lastViewed";
         String order = "desc";
         Bson sortCriteria = new BasicDBObject(sort, "desc".equals(order) ? -1 : 1);
@@ -118,7 +119,7 @@ public class VideoDAO {
     public List<VideoModel> doAdvancedSearch(String searchString) {
         final List<VideoModel> list = new ArrayList<>();
         @SuppressWarnings("UnusedAssignment")
-        VideoModel entity = new VideoModel();
+        VideoModel entity = null;
         String sort = "viewCount";
         String order = "desc";
         Bson sortCriteria = new BasicDBObject(sort, "desc".equals(order) ? -1 : 1);

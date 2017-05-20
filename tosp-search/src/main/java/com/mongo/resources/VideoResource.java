@@ -39,10 +39,11 @@ public class VideoResource {
             List<Comment> commentList = new ArrayList<>();
             commentList.add(data);
             model.getCommentList().addAll(commentList);
+            videoDAO.save(model);
         } else {
             System.out.println("####VIDEO NOT FOUND: id:=> " + data.getResourceId());
         }
-        videoDAO.save(model);
+
         return Response.ok().entity("\"Success\"").type(MediaType.APPLICATION_JSON + ";charset=utf-8").build();
 
     }
@@ -77,13 +78,10 @@ public class VideoResource {
     @Timed
     public Response updateCount(@PathParam("videoId") String videoId) {
         VideoModel model = videoDAO.findById(videoId.trim());
-        System.out.println("####updateCount:videoId " + videoId);
         if (model != null) {
-            System.out.println("####updateCount:model " + model.toString());
             model.setViewCount(model.getViewCount() + 1);
-          //  model.setLastViewed(new Date(System.currentTimeMillis()));
+            videoDAO.updateCount(model);
         }
-        videoDAO.updateCount(model);
         return Response.ok().entity("\"updated\"").type(MediaType.APPLICATION_JSON + ";charset=utf-8").build();
     }
 
