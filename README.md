@@ -1,6 +1,6 @@
 # TospTube
 
-TospTube video is just video search/upload start up experemental project under development stage.
+TospTube youtube like experemental project under development stage.
 
 It is strange, but it is already working.:) Any Java Developer can setup it in his localhost.
 
