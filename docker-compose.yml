@@ -1,0 +1,134 @@
+version: "3.3"
+
+services:  
+
+  eureka:
+    image: eureka   
+    build: ./eureka
+    container_name: eureka
+    ports:
+      - '8761:8761'
+    volumes:
+      - /opt/eureka/logs/:/opt/eureka/logs
+    networks:
+      - tospnet
+
+  mongodb:      
+    build: ./mongodb
+    image: mongodb
+    container_name: mongodb    
+    volumes:
+      - /opt/mongobing/data:/data/db
+      - /opt/mongobing/logs:/data/logs
+    ports:
+      - 27017:27017
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_PASSWORD=Abcdf
+      - MONGO_INITDB_ROOT_USERNAME=BingoBongo
+    command: mongod
+    networks:
+      tospnet:
+        aliases:
+          - mongodb
+
+  auth:
+    image: auth   
+    build: ./auth
+    container_name: auth
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    links:      
+      - mongodb 
+      - eureka
+    depends_on:     
+      - mongodb
+      - eureka     
+    ports:
+      - '4001:4001'
+    volumes:
+      - /opt/auth/logs/:/opt/auth/logs
+    networks:
+      - tospnet
+
+
+  register:
+    image: register   
+    build: ./register
+    container_name: register
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    links:      
+      - mongodb 
+      - eureka
+    depends_on:     
+      - mongodb
+      - eureka     
+    ports:
+      - '4004:4004'
+    volumes:
+      - /opt/register/logs/:/opt/register/logs
+    networks:
+      - tospnet
+      
+  search:
+    image: search   
+    build: ./search
+    container_name: search
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    links:      
+      - mongodb 
+      - eureka
+    depends_on:     
+      - mongodb
+      - eureka     
+    ports:
+      - '4005:4005'
+    volumes:
+      - /opt/search/logs/:/opt/search/logs
+    networks:
+      - tospnet
+
+  tosp-web:    
+    image: tosp-web 
+    build: ./tosp-web                
+    container_name: tosp-web    
+    volumes:
+     - /opt/tosp-web/logs/:/opt/tosp-web/logs
+    ports:
+     - '9595:8080'  
+    networks:
+     - tospnet
+
+
+networks:
+  tospnet:
+    driver: bridge
